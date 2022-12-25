@@ -6,7 +6,8 @@ from PIL import Image
 import numpy as np
 
 app = Flask(__name__, static_folder='uploads')
-app.secret_key = 'super secret key'
+
+app.secret_key = '2030234082342'
 app.config['SESSION_TYPE'] = 'filesystem'
 
 UPLOAD_FOLDER = './uploads'
@@ -91,3 +92,6 @@ def result():
     args = request.args
     with open('uploads/' + args.get("name"), 'r') as f: 
       return render_template('result.html', text=f.read())
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0")
