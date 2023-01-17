@@ -20,53 +20,57 @@ def allowed_file(filename):
     filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def image_proccessing(image_path):
-  # Buka gambar
-  im = Image.open(image_path)
-  width, height = im.size
-  print(width)
+    # Buka gambar
+    im = Image.open(image_path)
 
-  # Ubah menjadi grayscale
-  newimage2 = im.convert('L')
+    # Ubah menjadi grayscale
+    new_image2 = im.convert('L')
 
-  newimage2.thumbnail((1000, 1000))
+    # Resize image tanpa mengubah rasio
+    new_image2.thumbnail((500,500))
 
-  # Ubah setiap pixel menjadi simbol sesuai dengan ketentuan
-  pixels = np.array(newimage2)
-  pixels = pixels.astype(str)
-  for x in range(min(width, pixels.shape[0])):
-    for y in range(min(height, pixels.shape[1])):
-      pixel = pixels[x, y]
-      if int(pixel) >= 0 and int(pixel) <= 22:
-          pixels[x, y] = '@'
-      elif int(pixel) >= 23 and int(pixel) <= 45:
-          pixels[x, y] = '$'
-      elif int(pixel) >= 46 and int(pixel) <= 68:
-          pixels[x, y] = '#'
-      elif int(pixel) >= 69 and int(pixel) <= 89:
-          pixels[x, y] = '*'
-      elif int(pixel) >= 90 and int(pixel) <= 112:
-          pixels[x, y] = '!'
-      elif int(pixel) >= 113 and int(pixel) <= 135:
-          pixels[x, y] = '='
-      elif int(pixel) >= 136 and int(pixel) <= 158:
-          pixels[x, y] = ';'
-      elif int(pixel) >= 159 and int(pixel) <= 181:
-          pixels[x, y] = ':'
-      elif int(pixel) >= 182 and int(pixel) <= 204:
-          pixels[x, y] = '~'
-      elif int(pixel) >= 205 and int(pixel) <= 227:
-          pixels[x, y] = '-'
-      else:
-          pixels[x, y] = '.'
-  file = open(image_path + '.rtf',"w")
+    # Menginisialisasi lebar dan tinggi dari gambar
+    width, height = new_image2.size
 
-  # Cetak teks simbol
-  for x in range(min(width, pixels.shape[0])):
-    for y in range(min(height, pixels.shape[1])):
-        file.write(pixels[x, y] + " ")
-    file.write('\n')
+    # Ubah setiap pixel menjadi simbol sesuai dengan ketentuan
+    pixels = np.array(new_image2)
+    pixels = pixels.astype(str)
+    for x in range(height):
+        for y in range(width):
+            pixel = pixels[x, y]
+            if int(pixel) >= 0 and int(pixel) <= 22:
+                pixels[x, y] = '@'
+            elif int(pixel) >= 23 and int(pixel) <= 45:
+                pixels[x, y] = '$'
+            elif int(pixel) >= 46 and int(pixel) <= 68:
+                pixels[x, y] = '#'
+            elif int(pixel) >= 69 and int(pixel) <= 89:
+                pixels[x, y] = '*'
+            elif int(pixel) >= 90 and int(pixel) <= 112:
+                pixels[x, y] = '!'
+            elif int(pixel) >= 113 and int(pixel) <= 135:
+                pixels[x, y] = '='
+            elif int(pixel) >= 136 and int(pixel) <= 158:
+                pixels[x, y] = ';'
+            elif int(pixel) >= 159 and int(pixel) <= 181:
+                pixels[x, y] = ':'
+            elif int(pixel) >= 182 and int(pixel) <= 204:
+                pixels[x, y] = '~'
+            elif int(pixel) >= 205 and int(pixel) <= 227:
+                pixels[x, y] = '-'
+            else:
+                pixels[x, y] = '.'
 
-  file.close
+    # Membuat file output
+    file = open(image_path + ".txt","w")
+
+    # Cetak teks simbol
+    for x in range(height):
+        for y in range(width):
+            file.write(pixels[x, y]+"  ")
+        file.write('\n')
+
+    file.close
 
 @app.route('/')
 def home():
