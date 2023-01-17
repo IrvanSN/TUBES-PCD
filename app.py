@@ -91,7 +91,7 @@ def upload_image():
       filename = secure_filename(str(epoch_time) + '-' + file.filename)
       file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
       image_proccessing('uploads/' + filename)
-      return redirect(url_for('result', name=filename + '.rtf'))
+      return redirect(url_for('result', name=filename + '.txt'))
 
 @app.route('/result', methods = ['POST', 'GET'])
 def result():
