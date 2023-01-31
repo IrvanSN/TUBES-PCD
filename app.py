@@ -39,27 +39,27 @@ def image_proccessing(image_path):
         for y in range(width):
             pixel = pixels[x, y]
             if int(pixel) >= 0 and int(pixel) <= 22:
-                pixels[x, y] = '.'
+                pixels[x, y] = '@'
             elif int(pixel) >= 23 and int(pixel) <= 45:
-                pixels[x, y] = '-'
+                pixels[x, y] = '$'
             elif int(pixel) >= 46 and int(pixel) <= 68:
-                pixels[x, y] = '~'
+                pixels[x, y] = '#'
             elif int(pixel) >= 69 and int(pixel) <= 89:
-                pixels[x, y] = ':'
+                pixels[x, y] = '*'
             elif int(pixel) >= 90 and int(pixel) <= 112:
-                pixels[x, y] = ';'
+                pixels[x, y] = '!'
             elif int(pixel) >= 113 and int(pixel) <= 135:
                 pixels[x, y] = '='
             elif int(pixel) >= 136 and int(pixel) <= 158:
-                pixels[x, y] = '!'
+                pixels[x, y] = ';'
             elif int(pixel) >= 159 and int(pixel) <= 181:
-                pixels[x, y] = '*'
+                pixels[x, y] = ':'
             elif int(pixel) >= 182 and int(pixel) <= 204:
-                pixels[x, y] = '#'
+                pixels[x, y] = '~'
             elif int(pixel) >= 205 and int(pixel) <= 227:
-                pixels[x, y] = '$'
+                pixels[x, y] = '-'
             else:
-                pixels[x, y] = '@'
+                pixels[x, y] = '.'
 
     # Membuat file output
     file = open(image_path + ".txt","w")
